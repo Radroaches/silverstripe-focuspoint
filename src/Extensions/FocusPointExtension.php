@@ -94,13 +94,15 @@ class FocusPointExtension extends Extension
      *
      * Use {@see FocusFillMax} to prevent upscaling
      *
-     * @param int $width Width to crop to
-     * @param int $height Height to crop to
+     * @param int|float $width Width to crop to
+     * @param int|float $height Height to crop to
      *
      * @return Image|DBFile|null
      */
-    public function FocusFill(int $width, int $height)
+    public function FocusFill(int|float $width, int|float $height)
     {
+        $width = intval($width);
+        $height = intval($height);
         $cropData = $this->owner->FocusPoint->calculateCrop($width, $height, true);
         $variant = $this->focusPointVariantName(__FUNCTION__, $width, $height);
         return $this->manipulateImageCropData($variant, $cropData);

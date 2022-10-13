@@ -168,7 +168,7 @@ class DBFocusPoint extends DBComposite
      * @return array|null Array with fields x, y, each with array of FocusPoint, OriginalLength and TargetLength
      * Can return null if error
      */
-    public function calculateCrop(?int $width, ?int $height, bool $upscale): ?array
+    public function calculateCrop(int|float|null $width, int|float|null $height, bool $upscale): ?array
     {
         // Requested to resize to 0 results in an error
         if (empty($width) && empty($height)) {
@@ -179,6 +179,8 @@ class DBFocusPoint extends DBComposite
         if (empty($this->Width) || empty($this->Height)) {
             return null;
         }
+        $width = intval($width);
+        $height = intval($height);
 
         // Assign targets, considering that we may only be scaling on one dimension
         $targetWidth = $width ?: $this->Width;
